@@ -19,6 +19,11 @@ class AdvancedMediaLibraryFileUpload extends SpatieMediaLibraryFileUpload
     {
         parent::setUp();
 
+        $this->visible(function (AdvancedMediaLibraryFileUpload $component) {
+            $record = $component->getRecord();
+            return $record && $record->exists;
+        });
+
         $this->loadStateFromRelationshipsUsing(static function (SpatieMediaLibraryFileUpload $component, HasMedia $record) use (&$index): void {
             /** @var Model&HasMedia $record */
             $media = $record->load('media')
